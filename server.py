@@ -2,6 +2,7 @@ import socket
 import threading
 import dictionary
 
+api_key = '57300dd3-e1ec-43cb-81fd-5b44fdf7df7d'
 
 # Function to handle client connections
 def handle_client(client_socket):
@@ -18,10 +19,13 @@ def handle_client(client_socket):
         # Check if the client wants to quit
         if message.lower() == "quit":
             break
-
+        if(dictionary.is_valid_word(message, api_key)):
+            print("This is a valid word")
+        else:
+            print("This is not a valid word")
+        
     # Close the client connection when done
     client_socket.close()
-
 
 # Main function to set up the server
 def main():
