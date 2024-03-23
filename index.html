@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Example</title>
+    <script>
+        var socket = new WebSocket('ws://localhost:5555');
+
+        socket.onopen = function(event) {
+            console.log('WebSocket connection established.');
+            socket.send('Hello from frontend!');
+        };
+
+        socket.onmessage = function(event) {
+            console.log('Received message from server:', event.data);
+        };
+    </script>
+</head>
+<body>
+    <h1>WebSocket Example</h1>
+</body>
+</html>
