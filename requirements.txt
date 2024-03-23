@@ -1,8 +1,1 @@
-Front End:
-// Google Firebase - login
-// Speech recongintion API: passed in as string
-
-
-Back End:
-
-// Dictionary Api
+requests
