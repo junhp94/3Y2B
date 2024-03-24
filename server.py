@@ -17,7 +17,7 @@ def handleclient(clientsocket):
         delim = ' '
         print(message)
         lastspace = message.rfind(' ')
-        word = message[lastspace + 1: len(message) - 1]
+        word = message[lastspace + 1:]
         print('actual input:',word)
         if word in g.mem: 
             print('not unique')
@@ -53,6 +53,7 @@ def main():
     except KeyboardInterrupt:
         print("Server shutting down...")
         # TODO: join client threads back to main
+        client_thread.join()
         server_socket.close()
 
 
