@@ -1,4 +1,4 @@
 requests
 speechrecognition
 PyAudio
-distutils
+Flask
