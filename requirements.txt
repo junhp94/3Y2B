@@ -1,0 +1,4 @@
+requests
+speechrecognition
+PyAudio
+distutils
