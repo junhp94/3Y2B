@@ -1,4 +1,6 @@
 requests
 speechrecognition
 PyAudio
-distutils
+Flask
+flask_cors
+flask_socketio

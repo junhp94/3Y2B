@@ -1,4 +1,6 @@
+
 import logging
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
@@ -6,6 +8,7 @@ from flask_socketio import SocketIO, emit
 app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app)
+
 
 # Set the logging level to ignore requests to the `/current_users` endpoint
 logging.getLogger("werkzeug").setLevel(logging.ERROR)
@@ -58,3 +61,4 @@ def get_current_users():
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=5555)
+
