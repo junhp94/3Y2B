@@ -1,6 +1,4 @@
-requests
-speechrecognition
-PyAudio
-Flask
-flask_cors
-flask_socketio
+speechbrain
+soundfile
+websockets
+touchaudio

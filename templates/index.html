@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime WebSocket Audio Streaming</title>
+    <style>
+        body {
+            background-color: black;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Realtime WebSocket Audio Streaming</h1>
+    <button id="startButton">Start Streaming</button>
+    <button id="stopButton">Stop Streaming</button>
+    <div id="responseContainer"></div>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script>
+        // Made use of https://www.WebRTC-Experiment.com/RecordRTC
+        // which supports audio recording to PCM format
+        // and sample rate specification
+        // other solutions seemed to be limited to M4A / Opus / WebM...
+        let mediaRecorder;
+        var ws = new WebSocket('ws://localhost:5678');
+    
+        ws.onmessage = function(e){
+            var server_message = e.data;
+            alert(server_message);
+            return false;
+        }
+
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onload = () => {
+                    const base64String = reader.result.split(',')[1];
+                    resolve(base64String);
+                };
+                reader.onerror = (error) => reject(error);
+            });
+        }
+
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                var recorder;
+                
+                document.getElementById('startButton').addEventListener('click', () => {
+                    recorder = RecordRTC(stream, {
+                    type: 'audio',
+                    recorderType: StereoAudioRecorder,
+                    mimeType: 'audio/wav',
+                    timeSlice: 500,
+                    desiredSampRate: 16000,
+                    numberOfAudioChannels: 1
+                }); // Recorder specs; if you put the initialization routine
+                // outisde the eventListener, only the first recording attempt
+                // will succeed without reloading the page
+                    recorder.startRecording();
+                });
+
+                document.getElementById('stopButton').addEventListener('click', () => {
+                    recorder.stopRecording(function() {
+                        blobToBase64(this.getBlob()).then(b64 => {
+                        ws.send(b64)
+                    }); // audio blob -> B64 -> WS
+                })
+                });
+            });
+
+        ws.onopen = () => {
+            console.log('WebSocket connection opened');
+            // return false;
+        };
+
+        ws.onclose = () => {
+            console.log('WebSocket connection closed');
+        };
+    </script>
+</body>
+</html>
