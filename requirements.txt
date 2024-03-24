@@ -2,3 +2,4 @@ requests
 speechrecognition
 PyAudio
 Flask
+flask_cors
