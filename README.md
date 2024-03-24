@@ -1,10 +1,14 @@
 # Speaker Recognition Proof of Concept
 
-This repo tries to implement speaker recognition using the model provided [here](https://huggingface.co/speechbrain/spkrec-ecapa-voxceleb). The front end captures the user's voice and sends the audio to the backend, which runs the inference based on the pretrained model. The accuracy is pretty good but it may not be production model. It is based on [SpeechBrain](https://github.com/speechbrain/speechbrain) which is capable of other tasks such as speech recognition and live transcription.
+This repo tries to implement speaker recognition using the model provided [here](https://huggingface.co/speechbrain/spkrec-ecapa-voxceleb). The front end captures the user's voice and sends the audio to the backend, which runs the inference based on the pretrained model. The accuracy is pretty good but it may not be production level.
+
+It is based on [SpeechBrain](https://github.com/speechbrain/speechbrain) which is capable of other tasks such as speech recognition and live transcription.
 
 # Building and Running
 
 Run `pip install -r /path/to/requirements.txt` to install prerequisites and `python app.py` to run the app.
+The WS server will be exposed at `localhost:5678/` which you can edit accordingly.
+
 Note: the pretrained model is located under `pretrained_models/` and is ~80MB large. The config file has been modified so that local model will be used instead of downloading from online source, but the `speechbrain` library will still copy and create caches locally at runtime for the first run (not subsequent runs), hence double the space taken.
 
 # Caveats
