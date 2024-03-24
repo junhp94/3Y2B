@@ -12,6 +12,8 @@ def handle_client(client_socket):
         if not data:
             break
 
+        # print(data)
+
         # Decode the received message
         message = data.decode("utf-8")
         print("Received:", message)
@@ -19,10 +21,11 @@ def handle_client(client_socket):
         # Check if the client wants to quit
         if message.lower() == "quit":
             break
-        if(dictionary.is_valid_word(message, api_key)):
-            print("This is a valid word")
-        else:
-            print("This is not a valid word")
+
+        # if(dictionary.is_valid_word(message, api_key)):
+        #     print("This is a valid word")
+        # else:
+        #     print("This is not a valid word")
         
     # Close the client connection when done
     client_socket.close()
@@ -36,13 +39,13 @@ def main():
     server_socket.bind((server_host, server_port))
     server_socket.listen(5)  # Listen for incoming connections
 
-    print("Server listening on {}:{}".format(server_host, server_port))
+    # print("Server listening on {}:{}".format(server_host, server_port))
 
     try:
         while True:
             # Accept incoming connections
             client_socket, client_address = server_socket.accept()
-            print("Accepted connection from:", client_address)
+            # print("Accepted connection from:", client_address)
 
             # Create a new thread to handle the client
             client_thread = threading.Thread(
@@ -51,7 +54,7 @@ def main():
             client_thread.start()
 
     except KeyboardInterrupt:
-        print("Server shutting down...")
+        # print("Server shutting down...")
         server_socket.close()
 
 

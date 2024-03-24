@@ -1,9 +1,10 @@
 import requests
 
-def is_valid_word(word, api_key):
+def is_valid_word(word: str, api_key):
+    print("Here is the word: " + word)
     url = f'https://www.dictionaryapi.com/api/v3/references/collegiate/json/{word}?key={api_key}'
     response = requests.get(url)
-    print(response.content)
+    # print(response.content)
     try:
         data = response.json()
         if response.status_code == 200:
